@@ -1,3 +1,13 @@
 <% include ./partials/header %>
 
 <h1> Welcome to Catbook </h1>
+
+<% if(auth) { %>
+  <form action="/feed" method="POST">
+    <input type="text" name="content" />
+    <input type="submit" value="add post" />
+  </form>
+
+<% } else { %>
+  <p> Please login to view and create a post </p>
+<% } %>

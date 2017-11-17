@@ -24,4 +24,13 @@ User.findByUsername = username => {
   `, [username])
 }
 
+User.findAll = () => {
+  return db.manyOrNone(`
+    SELECT 
+      username, description
+    FROM
+      users  
+  `)
+}
+
 module.exports = User;

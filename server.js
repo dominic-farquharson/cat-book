@@ -8,6 +8,7 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 const path = require('path');
+const userController = require('./controllers/user-controller');
 
 // config
 require('dotenv').config();
@@ -36,6 +37,9 @@ app.get('/', (req, res) => {
   })
 })
 app.use('/auth', authRoutes);
+
+app.get('/cats', userController.index)
+
 app.get('/:id', (req, res, next) => {
   // Render user profile info
   res.render('userProfile', {

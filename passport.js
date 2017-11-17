@@ -6,6 +6,7 @@ const bcrypt = require('bcryptjs');
 
 // checking if password matches
 function comparePassword(suppliedPassword, databasePassword) {
+  console.log('did passwords match ? ', bcrypt.compareSync(suppliedPassword, databasePassword))
   return bcrypt.compareSync(suppliedPassword, databasePassword);
 }
 
@@ -34,8 +35,7 @@ passport.use(new localStrategy(
         if(!user) {
           return done(null, false, { message: 'incorrect username' })
         }
-
-        console.log('user ', user)
+        
         // incorrect pssword
         if(!comparePassword(password, user.password_digest)) {
           console.log(password, user.password_digest)

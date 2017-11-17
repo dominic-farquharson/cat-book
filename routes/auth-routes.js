@@ -7,8 +7,6 @@ authRoutes.post('/register', (req, res) => {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(req.body.password, salt);
 
-  console.log('do password mastch', bcrypt.compareSync(req.body.password, hash))
-
   const { username, email, first_name, last_name, description } = req.body;
 
   User.create({
@@ -20,7 +18,7 @@ authRoutes.post('/register', (req, res) => {
     description
   })
     .then(user => {
-      // everything okay!
+      // everything okay! - attach user object to req.user 
       req.login(user ,function(err) {
         if(err) return next(err);
         return res.redirect(`/${user.username}`);
@@ -43,7 +41,10 @@ authRoutes.post('/login', (req, res, next) => {
   passport.authenticate('local', function(err, user, info) {
     // custrom redirect 
     if(err) return next(err);
-    if(!user) return res.redirect('/auth/login');
+    if(!user) {
+      req.flash('error', 'error logging in'); 
+      return res.redirect('/auth/login')
+    };
 
     // everything okay!
     req.login(user ,function(err) {
@@ -56,7 +57,19 @@ authRoutes.post('/login', (req, res, next) => {
 
 
 authRoutes.get('/login', (req, res) => {
-  res.render('auth/login')
+  console.log('flash message ', req.flash().error)
+  const error = req.flash('error');
+  res.render('auth/login', {
+    flash: error,
+    auth: req.user? true : false
+  })
+})
+
+authRoutes.get('/logout', (req, res) => {
+  // terminate session, clear user property from req object
+  req.logout();
+  // redirect to home
+  res.redirect('/auth/login');
 })
 
 authRoutes.get('/user', (req, res) => {

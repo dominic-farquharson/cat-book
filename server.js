@@ -30,14 +30,14 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // routes
 app.get('/', (req, res) => {
-  res.status(200).send('Home page')
+  res.status(200).send(`Home page \n You are logged in: \n ${req.user? true : false}`);
 })
 app.use('/auth', authRoutes);
 app.get('/:id', (req, res, next) => {
   // Render user profile info
-  console.log(req.user)
   res.render('userProfile', {
-    user: req.user  // will eventually retrieve from database - will be public
+    user: req.user,  // will eventually retrieve from database - will be public
+    auth: req.user? true : false
   })
 })
 

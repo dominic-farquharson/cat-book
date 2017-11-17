@@ -38,15 +38,14 @@ app.get('/', (req, res) => {
 })
 app.use('/auth', authRoutes);
 
-app.get('/cats', userController.index)
+app.get('/cats', userController.index);
 
-app.get('/:id', (req, res, next) => {
-  // Render user profile info
-  res.render('userProfile', {
-    user: req.user,  // will eventually retrieve from database - will be public
-    auth: req.user? true : false
-  })
-})
+// prevent favicion from being caught
+app.get('/favicon.ico', function(req, res) {
+  res.status(204);
+});
+
+app.get('/:username', userController.show);
 
 // not found
 app.use('*', (req, res) => {

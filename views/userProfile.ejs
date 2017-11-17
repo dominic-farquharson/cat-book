@@ -1,6 +1,10 @@
 <% include ./partials/header %>
 
-<% if(user) { %>
-  <h1> <%= user.username %> </h1>
-  <pre><%= JSON.stringify(user) %></pre>
+<p> Username: <%= user.username %> </p>
+<p> Name:  <%= user.first_name %> <%= user.last_name %> </p>
+<p> Description: <%= user.description %> </p>
+
+<% if(isUser) { %>
+  <h1> This is my profile man </h1>
+  <a href="/edit">Edit</a>
 <% } %>

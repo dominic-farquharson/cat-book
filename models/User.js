@@ -14,7 +14,7 @@ User.create = (user) => {
 }
 
 User.findByUsername = username => {
-  return db.oneOrNone(`
+  return db.one(`
     SELECT 
       * 
     FROM 
@@ -31,6 +31,17 @@ User.findAll = () => {
     FROM
       users  
   `)
+}
+
+User.findUserPublic = username => {
+  return db.one(`
+    SELECT 
+      username, description
+    FROM 
+      users
+    WHERE
+      username = $1
+  `, [username])
 }
 
 module.exports = User;

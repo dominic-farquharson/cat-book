@@ -6,8 +6,9 @@ userController.index = (req, res, next) => {
     .then(users => {
       res.render('cats/cats-index', {
         auth: req.user? true : false,
-        user: req.user? req.user : null,
-        users
+        username: req.user? req.user.username : null,
+        users,
+        user: req.user ? req.user : null
       })
     })
     .catch(err => {

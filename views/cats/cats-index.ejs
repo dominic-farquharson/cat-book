@@ -3,9 +3,10 @@
 <h1> Cats </h1>
 <ul>
   <% users.forEach(user => { %>
-    <li> 
+    <li class="<%= username === user.username? 'user' : '' %>" > 
       <h3><%= user.username %><h3>
       <p><%= user.description %></p>
+      <a href="/<%= user.username %>">View</a>
     </li>  
   <% }) %>
 </ul>

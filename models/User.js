@@ -5,11 +5,11 @@ const User = {};
 User.create = (user) => {
   return db.one(`
     INSERT INTO users
-    (username, password)
+      (username, first_name, last_name, password_digest, email, description)
     VALUES
-    ($1, $2)
+      ($/username/, $/first_name/, $/last_name/, $/password_digest/, $/email/, $/description/)
     RETURNING *
-  `, [username, password])
+  `, user)
 }
 
 module.exports = User;

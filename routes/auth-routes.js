@@ -20,8 +20,10 @@ authRoutes.post('/register', (req, res) => {
     description
   })
     .then(user => {
-      res.json({
-        user
+      // everything okay!
+      req.login(user ,function(err) {
+        if(err) return next(err);
+        return res.redirect(`/${user.username}`);
       })
     })
     .catch(err => {
@@ -30,11 +32,32 @@ authRoutes.post('/register', (req, res) => {
     })
 })
 
-authRoutes.post('/login', passport.authenticate('local', {
-  successRedirect: '/auth/user',
-  failureRedirect: '/login',
-  failureFlash: true
-}))
+// DEFAULT REDIRECT
+// authRoutes.post('/login', passport.authenticate('local', {
+//   successRedirect: '/auth/user',
+//   failureRedirect: '/auth/login',
+//   failureFlash: true
+// }))
+
+authRoutes.post('/login', (req, res, next) => {
+  passport.authenticate('local', function(err, user, info) {
+    // custrom redirect 
+    if(err) return next(err);
+    if(!user) return res.redirect('/auth/login');
+
+    // everything okay!
+    req.login(user ,function(err) {
+      if(err) return next(err);
+      return res.redirect(`/${user.username}`);
+    })
+
+  })(req, res, next)
+})
+
+
+authRoutes.get('/login', (req, res) => {
+  res.render('auth/login')
+})
 
 authRoutes.get('/user', (req, res) => {
   res.json({

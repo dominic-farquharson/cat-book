@@ -7,6 +7,7 @@ const authRoutes = require('./routes/auth-routes')
 const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
+const path = require('path');
 
 // config
 require('dotenv').config();
@@ -18,6 +19,9 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash())
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // middleware
 app.use(morgan('dev'));
@@ -29,6 +33,13 @@ app.get('/', (req, res) => {
   res.status(200).send('Home page')
 })
 app.use('/auth', authRoutes);
+app.get('/:id', (req, res, next) => {
+  // Render user profile info
+  console.log(req.user)
+  res.render('userProfile', {
+    user: req.user  // will eventually retrieve from database - will be public
+  })
+})
 
 // not found
 app.use('*', (req, res) => {

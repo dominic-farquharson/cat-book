@@ -3,6 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
+const authRoutes = require('./routes/auth-routes')
 
 // config
 require('dotenv').config();
@@ -14,9 +15,9 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // routes
 app.get('/', (req, res) => {
-  res.send('Home page')
+  res.status(200).send('Home page')
 })
-
+app.use('/auth', authRoutes);
 
 // not found
 app.use('*', (req, res) => {

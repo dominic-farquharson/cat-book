@@ -30,7 +30,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 
 // routes
 app.get('/', (req, res) => {
-  res.status(200).send(`Home page \n You are logged in: \n ${req.user? true : false}`);
+  res.render('index', {
+    auth: req.user? true : false,
+    user: req.user? req.user : null
+  })
 })
 app.use('/auth', authRoutes);
 app.get('/:id', (req, res, next) => {

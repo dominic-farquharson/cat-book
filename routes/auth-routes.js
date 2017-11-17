@@ -57,8 +57,8 @@ authRoutes.post('/login', (req, res, next) => {
 
 
 authRoutes.get('/login', (req, res) => {
-  console.log('flash message ', req.flash().error)
-  const error = req.flash('error');
+  const error = req.flash('message');
+  console.log('failure flash ', error)
   res.render('auth/login', {
     flash: error,
     auth: req.user? true : false

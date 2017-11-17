@@ -9,6 +9,7 @@ const passport = require('passport');
 const flash = require('connect-flash');
 const path = require('path');
 const userController = require('./controllers/user-controller');
+const feedController = require('./controllers/feed-controller');
 
 // config
 require('dotenv').config();
@@ -30,15 +31,11 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 
 // routes
-app.get('/', (req, res) => {
-  res.render('index', {
-    auth: req.user? true : false,
-    user: req.user? req.user : null
-  })
-})
+app.get('/', feedController.index);
 app.use('/auth', authRoutes);
 
 app.get('/cats', userController.index);
+app.post('/feed', feedController.create)
 
 // prevent favicion from being caught
 app.get('/favicon.ico', function(req, res) {

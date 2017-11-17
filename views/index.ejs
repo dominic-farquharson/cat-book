@@ -4,9 +4,18 @@
 
 <% if(auth) { %>
   <form action="/feed" method="POST">
-    <input type="text" name="content" />
+    <input type="text" name="post" />
     <input type="submit" value="add post" />
   </form>
+
+  <ul>
+    <% posts.forEach(post => { %>
+      <li> 
+        <%= post.username %>  <br />
+        <%= post.post %>
+      </li>
+    <% }) %>
+  </ul>
 
 <% } else { %>
   <p> Please login to view and create a post </p>

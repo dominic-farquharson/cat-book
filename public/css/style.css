@@ -43,3 +43,12 @@ header {
 .postContainer {
   margin-bottom: 20px;
 }
+
+
+/* Flash messages */
+.error {
+  background: red;
+  color: white;
+  text-align: center;
+  /* height: 0 */
+}

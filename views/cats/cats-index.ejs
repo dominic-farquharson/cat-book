@@ -6,7 +6,7 @@
     <% users.forEach(user => { %>
       <li class="col-sm-6 list-group <%= username === user.username? 'user' : '' %>" > 
         <div class="card" style="width: 20rem;">
-          <img class="card-img-top" src="http://placehold.it/100x100" alt="Card image cap">
+          <img class="card-img-top" src="/assets/cat-default.jpg" alt="Card image cap">
           <div class="card-body">
             <h4 class="card-title"><%= user.username %></h4>
             <p class="card-text"><%= user.description %></p>

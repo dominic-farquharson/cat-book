@@ -4,16 +4,24 @@
 
   <% if(auth) { %>
     <form action="/feed" method="POST">
-      <input type="text" name="post" />
-      <input type="submit" value="add post" />
+      <div class="form-group">
+        <h4>What's on your mind?</h4>
+        <input class="form-control" type="text" name="post" />
+        <input class="btn btn-primary" type="submit" value="add post" />
+      </div>
     </form>
 
-    <ul>
+    <ul class="list-group">
       <% posts.forEach(post => { %>
-        <li> 
-          <%= post.username %>  <br />
-          <%= post.post %>
-          <%= post.post_added %>
+        <li class="postContainer list-group-item <%= post.username === user.username? 'userPost' : '' %>"> 
+          <div class="profilePicAndName">
+            <img class="profilePic" src="/assets/cat-default.jpg" />
+            <h4 class="username"><%= post.username %></h4>
+          </div>
+          <div class="post">
+            <p><%= post.post %></p>
+            <small><%= post.post_added %></small>
+          </div>
         </li>
       <% }) %>
     </ul>

@@ -14,7 +14,7 @@ Feed.create = (data) => {
 
 Feed.findAll = () => {
   return db.manyOrNone(`
-    SELECT * FROM feed
+    SELECT username, post, to_char(post_added, 'MM/DD HH12:MI AM') AS post_added FROM feed
   `)
 }
 

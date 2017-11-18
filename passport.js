@@ -13,11 +13,13 @@ function comparePassword(suppliedPassword, databasePassword) {
 module.exports = (req, res) => {
   // username stored to session
   passport.serializeUser((user, done) => {
+    console.log('serialize--------', user)
     done(null, user.username);
   });
   
   // user info attached to req.user
   passport.deserializeUser((username, done) => {
+    console.log('de-serialize--------', username)
     User.findByUsername(username)
       .then(user => {
         done(null, user);

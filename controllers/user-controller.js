@@ -1,5 +1,6 @@
 const userController = {};
 const User = require('../models/User');
+const bcrypt = require('bcryptjs');
 
 userController.index = (req, res, next) => {
   User.findAll()
@@ -34,6 +35,35 @@ userController.show = (req, res, next) => {
       console.log('error -----', err)
       // user does not exist
       res.redirect('/cats');
+    })
+}
+
+// create user
+
+userController.create = (req, res, next) => {
+  const salt = bcrypt.genSaltSync();
+  const hash = bcrypt.hashSync(req.body.password, salt);
+
+  const { username, email, first_name, last_name, description } = req.body;
+
+  User.create({
+    first_name,
+    last_name,
+    username,
+    email,
+    password_digest: hash,
+    description
+  })
+    .then(user => {
+      // everything okay! - attach user object to req.user 
+      req.login(user ,function(err) {
+        if(err) return next(err);
+        return res.redirect(`/${user.username}`);
+      })
+    })
+    .catch(err => {
+      console.log('error is ', err)
+      res.json({err})
     })
 }
 

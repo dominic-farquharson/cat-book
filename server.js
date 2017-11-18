@@ -35,7 +35,7 @@ app.get('/', feedController.index);
 app.use('/auth', authRoutes);
 
 app.get('/cats', userController.index);
-app.post('/feed', feedController.create)
+app.post('/feed', (req, res, next)=> req.user? next() : res.redirect('/auth/login'), feedController.create)
 
 // prevent favicion from being caught
 app.get('/favicon.ico', function(req, res) {

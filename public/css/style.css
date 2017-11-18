@@ -9,3 +9,8 @@ body {
 header {
   background: white;
 }
+
+.homeImage {
+  width: 80vw;
+  height: 70vh;
+}

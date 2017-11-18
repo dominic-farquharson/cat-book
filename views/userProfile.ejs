@@ -1,10 +1,17 @@
 <% include ./partials/header %>
 
-<p> Username: <%= user.username %> </p>
-<p> Name:  <%= user.first_name %> <%= user.last_name %> </p>
-<p> Description: <%= user.description %> </p>
+<div class="container">
+  <div class="card" style="width: 20rem;">
+    <img class="card-img-top" src="http://placehold.it/100x100" alt="Card image cap">
+    <div class="card-body">
+      <h4 class="card-title"><%= user.username %></h4>
+      <p class="card-text"><%= user.description %></p>
+      <% if(isUser) { %>
+        <div><a href="/edit">Edit</a><div>
+      <% } %>
+    </div>
+  </div>
 
-<% if(isUser) { %>
-  <h1> This is my profile man </h1>
-  <a href="/edit">Edit</a>
-<% } %>
+</div>  
+
+<% include ./partials/footer %>

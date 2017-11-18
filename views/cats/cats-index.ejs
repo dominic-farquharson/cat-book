@@ -1,12 +1,21 @@
 <% include ../partials/header %>
 
-<h1> Cats </h1>
-<ul>
-  <% users.forEach(user => { %>
-    <li class="<%= username === user.username? 'user' : '' %>" > 
-      <h3><%= user.username %><h3>
-      <p><%= user.description %></p>
-      <a href="/<%= user.username %>">View</a>
-    </li>  
-  <% }) %>
-</ul>
+<div class="container">
+  <h1> Cats </h1>
+  <ul class="row">
+    <% users.forEach(user => { %>
+      <li class="col-sm-6 list-group <%= username === user.username? 'user' : '' %>" > 
+        <div class="card" style="width: 20rem;">
+          <img class="card-img-top" src="http://placehold.it/100x100" alt="Card image cap">
+          <div class="card-body">
+            <h4 class="card-title"><%= user.username %></h4>
+            <p class="card-text"><%= user.description %></p>
+            <a href="/<%=user.username%>" class="btn btn-primary">View</a>
+          </div>
+        </div>
+      </li>  
+    <% }) %>
+  </ul>
+</div>
+
+<% include ../partials/footer %>

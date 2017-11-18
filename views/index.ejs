@@ -1,22 +1,27 @@
 <% include ./partials/header %>
 
-<h1> Welcome to Catbook </h1>
+<div class="container">
+  <h1> Welcome to Catbook </h1>
 
-<% if(auth) { %>
-  <form action="/feed" method="POST">
-    <input type="text" name="post" />
-    <input type="submit" value="add post" />
-  </form>
+  <% if(auth) { %>
+    <form action="/feed" method="POST">
+      <input type="text" name="post" />
+      <input type="submit" value="add post" />
+    </form>
 
-  <ul>
-    <% posts.forEach(post => { %>
-      <li> 
-        <%= post.username %>  <br />
-        <%= post.post %>
-      </li>
-    <% }) %>
-  </ul>
+    <ul>
+      <% posts.forEach(post => { %>
+        <li> 
+          <%= post.username %>  <br />
+          <%= post.post %>
+          <%= post.post_added %>
+        </li>
+      <% }) %>
+    </ul>
 
-<% } else { %>
-  <p> Please login to view and create a post </p>
-<% } %>
+  <% } else { %>
+    <p> Please login to view and create a post </p>
+  <% } %>
+</div>
+
+<% include ./partials/footer %>

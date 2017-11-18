@@ -1,17 +1,27 @@
 <% include ../partials/header %>
 
-<h1> Login </h1>
+<div class="container">
+  <h1> Login </h1>
 
-<% Object.keys(flash).forEach(function (type) { %>
-  <div class="<%= type %>">
-    <% flash[type].forEach(function (message) { %>
-      <%= message %>
-    <% }) %>
-  </div>
-<% }) %>
+  <% Object.keys(flash).forEach(function (type) { %>
+    <div class="<%= type %>">
+      <% flash[type].forEach(function (message) { %>
+        <%= message %>
+      <% }) %>
+    </div>
+  <% }) %>
 
-<form method="POST" action="/auth/login">
-  <input type="text" name="username" />
-  <input type="password" name="password" />
-  <input type="submit" value="Login" />
-</form>
+  <form method="POST" action="/auth/login">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input class="form-control" id="username" type="text" name="username" placeholder="Enter username" />
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input class="form-control" id="password" type="password" name="password" placeholder="Enter password" />
+    </div>
+    <input class="btn btn-primary" type="submit" value="Login" />
+  </form>
+</div>
+
+<% include ../partials/footer %>

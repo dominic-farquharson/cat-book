@@ -2,7 +2,14 @@
 
 <h1> Login </h1>
 
-<div><%= flash %> </div>
+<% Object.keys(flash).forEach(function (type) { %>
+  <div class="<%= type %>">
+    <% flash[type].forEach(function (message) { %>
+      <%= message %>
+    <% }) %>
+  </div>
+<% }) %>
+
 <form method="POST" action="/auth/login">
   <input type="text" name="username" />
   <input type="password" name="password" />

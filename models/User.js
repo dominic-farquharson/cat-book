@@ -14,7 +14,7 @@ User.create = (user) => {
 }
 
 User.findByUsername = username => {
-  return db.one(`
+  return db.oneOrNone(`
     SELECT 
       * 
     FROM 

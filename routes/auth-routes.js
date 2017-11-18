@@ -38,17 +38,17 @@ authRoutes.post('/register', (req, res) => {
 // }))
 
 authRoutes.post('/login', (req, res, next) => {
-  passport.authenticate('local', function(err, user, info) {
+  passport(req, res).authenticate('local', function(err, user, info) {
     // custrom redirect 
     if(err) return next(err);
     if(!user) {
-      req.flash('error', 'error logging in'); 
       return res.redirect('/auth/login')
     };
 
     // everything okay!
     req.login(user ,function(err) {
       if(err) return next(err);
+      req.flash('info', 'welcome to CatBook'); 
       return res.redirect(`/${user.username}`);
     })
 
@@ -57,10 +57,8 @@ authRoutes.post('/login', (req, res, next) => {
 
 
 authRoutes.get('/login', (req, res) => {
-  const error = req.flash('message');
-  console.log('failure flash ', error)
   res.render('auth/login', {
-    flash: error,
+    flash: req.flash(),
     auth: req.user? true : false
   })
 })
